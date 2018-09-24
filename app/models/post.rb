@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   validates :category, inclusion: {in: %w(Fiction Non-Fiction)}
   validate :is_clickbait?
 
-  CLICKBAIT_PATTERNS = [
+  CLICKBAIT = [
       /Won't Believe/i,
       /Secret/i,
       /Top [0-9]*/i,
@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
     ]
 
   def is_clickbait?
-    if CLICKBAIT_PATTERNS.none? do |pattern|
+    if CLICKBAIT.none? do |pattern|
       pattern.match title
     end
       errors.add(:title, "must be clickbait")
